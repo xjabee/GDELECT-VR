@@ -6,10 +6,13 @@ using UnityEngine;
 public class IpisHandler : MonoBehaviour
 {
     public GameObject pandesal;
+    public AudioClip damageSoundClip;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (pandesal == null)
+            pandesal = GameObject.FindGameObjectWithTag("Pandesal");
     }
 
     // Update is called once per frame
@@ -20,8 +23,10 @@ public class IpisHandler : MonoBehaviour
 
 
     
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision c)
     {
+        if(c.transform.tag == "Slipper")
+            SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
         Destroy(this.gameObject);
     }
 }
